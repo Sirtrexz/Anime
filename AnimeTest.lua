@@ -828,7 +828,7 @@ coroutine.resume(coroutine.create(function()
 		pcall(function() webhook() end)
 		print("next")
 		task.wait(2)
-		game:GetService("TeleportService"):Teleport(8304191830, game.Players.LocalPlayer)
+		game:GetService("TeleportService"):TeleportToPrivateServer(8304191830,86800200769919438653664926972747, game.Players.LocalPlayer)
 	end
 	end)
 end))
