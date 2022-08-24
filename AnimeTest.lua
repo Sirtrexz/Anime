@@ -362,7 +362,8 @@ function sex()
 
         
 
-        local worlddrop = autofarmtab:Dropdown("Select World", {"Plannet Namak", "Shiganshinu District", "Snowy Town","Hidden Sand Village", "Marine's Ford","Ghoul City"}, getgenv().world, function(world)
+        local worlddrop = autofarmtab:Dropdown("Select World", {"Plannet Namak", "Shiganshinu District", "Snowy Town","Hidden Sand Village", "Marine's Ford","Ghoul City",
+"Hollow World"}, getgenv().world, function(world)
             getgenv().world = world
             updatejson()
             if world == "Plannet Namak" then
@@ -411,6 +412,13 @@ function sex()
                 table.clear(levels)
                 getgenv().levels = {"tokyoghoul_infinite","tokyoghoul_level_1","tokyoghoul_level_2","tokyoghoul_level_3",
                 "tokyoghoul_level_4","tokyoghoul_level_5","tokyoghoul_level_6",}
+                for i, v in ipairs(levels) do
+                    getgenv().leveldrop:Add(v)
+                end
+	    elseif world == "Hollow World" then
+                getgenv().leveldrop:Clear()
+                table.clear(levels)
+                getgenv().levels = {"hueco_level_1,hueco_level_2,hueco_level_3,hueco_level_4,hueco_level_5,hueco_level_6,hueco_infinite",}
                 for i, v in ipairs(levels) do
                     getgenv().leveldrop:Add(v)
                 end
