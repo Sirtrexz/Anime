@@ -418,7 +418,7 @@ function sex()
 	    elseif world == "Hollow World" then
                 getgenv().leveldrop:Clear()
                 table.clear(levels)
-                getgenv().levels = {"hueco_level_1,hueco_level_2,hueco_level_3,hueco_level_4,hueco_level_5,hueco_level_6,hueco_infinite",}
+                getgenv().levels = {"hueco_level_1","hueco_level_2","hueco_level_3","hueco_level_4","hueco_level_5","hueco_level_6","hueco_infinite",}
                 for i, v in ipairs(levels) do
                     getgenv().leveldrop:Add(v)
                 end
