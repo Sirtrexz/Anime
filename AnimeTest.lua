@@ -5,7 +5,7 @@
 
 
 ---// Loading Section \\---
-task.wait(4)
+task.wait(2)
 repeat  task.wait() until game:IsLoaded()
 if game.PlaceId == 8304191830 then
     repeat task.wait() until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
@@ -307,7 +307,7 @@ function sex()
                     end
                 end
 
-                task.wait(3)
+                task.wait(0.9)
 
                 local args = {
                     [1] = getgenv().door
@@ -315,7 +315,7 @@ function sex()
                 game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(
                     args))
 
-                    task.wait(3)
+                    task.wait(0.9)
 
                 local args = {
                     [1] = getgenv().door, -- Lobby 
