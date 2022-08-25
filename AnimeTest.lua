@@ -307,7 +307,7 @@ function sex()
                     end
                 end
 
-                task.wait(0.9)
+                task.wait(4)
 
                 local args = {
                     [1] = getgenv().door
