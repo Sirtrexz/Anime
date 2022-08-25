@@ -1,7 +1,9 @@
--- v1.4.2 --
--- Hides users name automatically
--- Fixed Auto upgrade
--- Auto Ability might be broken (will fix later)
+-- v1.4.6 --
+-- + Fixed Auto Ability [if it breaks dm Arpon AG#6612]
+
+-- v1.4.5 --
+-- + Added Hollow World
+
 
 
 ---// Loading Section \\---
@@ -32,7 +34,7 @@ local function webhook()
 		print("webhook?")
 		if url == "" then
 			return
-		end
+		end 
 			
     		XP = tostring(game:GetService("Players").LocalPlayer.PlayerGui.ResultsUI.Holder.GoldGemXP.XPReward.Main.Amount.Text)
 		gems = tostring(game:GetService("Players").LocalPlayer.PlayerGui.ResultsUI.Holder.GoldGemXP.GemReward.Main.Amount.Text)
@@ -51,7 +53,7 @@ local function webhook()
 						["name"] = "Anime Adventures | Result ✔",
 						["icon_url"] = "https://cdn.discordapp.com/emojis/997123585476927558.webp?size=96&quality=lossless"
 					},
-					["description"] = "🎮 **"..game:GetService("Players").LocalPlayer.Name.."** 🎮",
+					["description"] = "🎮 ||**"..game:GetService("Players").LocalPlayer.Name.."**|| 🎮",
 					["color"] = 110335,
 
 					["thumbnail"] = {
@@ -160,13 +162,13 @@ function sex()
         writefile(savefilename, json)
 
     end
-
+    
     --------------------------------------------------
     --------------------------------------------------
     -- Uilib Shits
 
     local DiscordLib = loadstring(game:HttpGet "https://raw.githubusercontent.com/Forever4D/Lib/main/DiscordLib2.lua")()
-    local win = DiscordLib:Window("[🌊UPD 1] Anime Adventures v1.4.1".." - "..tostring(identifyexecutor()))
+    local win = DiscordLib:Window("[🌒UPD 3] Anime Adventures 1.4.6".." - "..tostring(identifyexecutor()))
     local serv = win:Server("Anime Adventures", "http://www.roblox.com/asset/?id=6031075938")
             
     if game.PlaceId == 8304191830 then
@@ -199,7 +201,7 @@ function sex()
                 warn(unitinfo)
                 if unitinfo ~= nil then
                     local unitinfo_ = unitinfo:split(" #")
-                    task.wait(3)
+                    task.wait(0.3)
                     game:GetService("ReplicatedStorage").endpoints.client_to_server.equip_unit:InvokeServer(unitinfo_[2])
                 end
             end
@@ -307,7 +309,7 @@ function sex()
                     end
                 end
 
-                task.wait(2.5)
+                task.wait()
 
                 local args = {
                     [1] = getgenv().door
@@ -315,24 +317,33 @@ function sex()
                 game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(
                     args))
 
-                    task.wait(0.9)
+                task.wait()
 
-                local args = {
-                    [1] = getgenv().door, -- Lobby 
-                    [2] = getgenv().level, -- World
-                    [3] = true, -- Friends Only or not
-                    [4] = getgenv().difficulty
-                }
-                game:GetService("ReplicatedStorage").endpoints.client_to_server.request_lock_level:InvokeServer(unpack(
-                    args))
+                if getgenv().level:match("infinite") then
+                    local args = {
+                        [1] = getgenv().door, -- Lobby 
+                        [2] = getgenv().level, -- World
+                        [3] = true, -- Friends Only or not
+                        [4] = "Hard"
+                    }
+                    game:GetService("ReplicatedStorage").endpoints.client_to_server.request_lock_level:InvokeServer(unpack(args))
+                else
+                    local args = {
+                        [1] = getgenv().door, -- Lobby 
+                        [2] = getgenv().level, -- World
+                        [3] = true, -- Friends Only or not
+                        [4] = getgenv().difficulty
+                    }
+                    game:GetService("ReplicatedStorage").endpoints.client_to_server.request_lock_level:InvokeServer(unpack(args))
+                end
 
-                    task.wait(3)
+
+                task.wait()
 
                 local args = {
                     [1] = getgenv().door
                 }
-                game:GetService("ReplicatedStorage").endpoints.client_to_server.request_start_game:InvokeServer(unpack(
-                    args))
+                game:GetService("ReplicatedStorage").endpoints.client_to_server.request_start_game:InvokeServer(unpack(args))
             end
 
         end)
@@ -362,8 +373,7 @@ function sex()
 
         
 
-        local worlddrop = autofarmtab:Dropdown("Select World", {"Plannet Namak", "Shiganshinu District", "Snowy Town","Hidden Sand Village", "Marine's Ford","Ghoul City",
-"Hueco"}, getgenv().world, function(world)
+        local worlddrop = autofarmtab:Dropdown("Select World", {"Plannet Namak", "Shiganshinu District", "Snowy Town","Hidden Sand Village", "Marine's Ford","Ghoul City", "Hollow World"}, getgenv().world, function(world)
             getgenv().world = world
             updatejson()
             if world == "Plannet Namak" then
@@ -411,14 +421,15 @@ function sex()
                 getgenv().leveldrop:Clear()
                 table.clear(levels)
                 getgenv().levels = {"tokyoghoul_infinite","tokyoghoul_level_1","tokyoghoul_level_2","tokyoghoul_level_3",
-                "tokyoghoul_level_4","tokyoghoul_level_5","tokyoghoul_level_6",}
+                                    "tokyoghoul_level_4","tokyoghoul_level_5","tokyoghoul_level_6",}
                 for i, v in ipairs(levels) do
                     getgenv().leveldrop:Add(v)
                 end
-	    elseif world == "Hueco" then
+            elseif world == "Hollow World" then
                 getgenv().leveldrop:Clear()
                 table.clear(levels)
-                getgenv().levels = {"hueco_infinite","hueco_level_1","hueco_level_2","hueco_level_3","hueco_level_4","hueco_level_5","hueco_level_6",}
+                getgenv().levels = {"hueco_infinite","hueco_level_1","hueco_level_2","hueco_level_3",
+                                    "hueco_level_4","hueco_level_5","hueco_level_6",}
                 for i, v in ipairs(levels) do
                     getgenv().leveldrop:Add(v)
                 end
@@ -925,9 +936,8 @@ coroutine.resume(coroutine.create(function()
                 if game.PlaceId ~= 8304191830 then
                     repeat task.wait() until game:GetService("Workspace"):WaitForChild("_UNITS")
                     for i, v in ipairs(game:GetService("Workspace")["_UNITS"]:GetChildren()) do
-                        repeat task.wait() until v:WaitForChild("_stats")			
                        if v:FindFirstChild("_stats") then
-                            if tostring(v["_stats"].player.Value) == game.Players.LocalPlayer.Name then
+                            if tostring(v["_stats"].player.Value) == game.Players.LocalPlayer.Name and v["_stats"].xp.Value > 0 then
                                 game:GetService("ReplicatedStorage").endpoints.client_to_server.use_active_attack:InvokeServer(v)
                             end
                         end
@@ -938,49 +948,76 @@ coroutine.resume(coroutine.create(function()
     end)
 end))
 
+
+getgenv().teleporting = true
+
 ------// Auto Start \\------
 coroutine.resume(coroutine.create(function()
     while task.wait() do
-        if getgenv().autostart and getgenv().AutoFarm then
+        if getgenv().autostart and getgenv().AutoFarm and getgenv().teleporting then
             if game.PlaceId == 8304191830 then
                 for i, v in pairs(game:GetService("Workspace")["_LOBBIES"].Story:GetDescendants()) do
                     if v.Name == "Owner" and v.Value == nil then
                         getgenv().door = v.Parent.Name
+                        getgenv().lobbypath = v.Parent:GetFullName() print(v.Parent:GetFullName())
                         break
                     end
                 end
 
-                task.wait(0.3)
+                task.wait()
 
                 local args = {
                     [1] = getgenv().door
                 }
-                game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(
-                    args))
+                game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
 
-                    task.wait(0.3)
+                task.wait()
 
-                local args = {
-                    [1] = getgenv().door, -- Lobby 
-                    [2] = getgenv().level, -- World
-                    [3] = true, -- Friends Only or not
-                    [4] = getgenv().difficulty
-                }
-                game:GetService("ReplicatedStorage").endpoints.client_to_server.request_lock_level:InvokeServer(unpack(
-                    args))
+                if getgenv().level:match("infinite") then
+                    local args = {
+                        [1] = getgenv().door, -- Lobby 
+                        [2] = getgenv().level, -- World
+                        [3] = true, -- Friends Only or not
+                        [4] = "Hard"
+                    }
+                    game:GetService("ReplicatedStorage").endpoints.client_to_server.request_lock_level:InvokeServer(unpack(args))
+                else
+                    local args = {
+                        [1] = getgenv().door, -- Lobby 
+                        [2] = getgenv().level, -- World
+                        [3] = true, -- Friends Only or not
+                        [4] = getgenv().difficulty
+                    }
+                    game:GetService("ReplicatedStorage").endpoints.client_to_server.request_lock_level:InvokeServer(unpack(args))
+                end
 
-                    task.wait(0.3)
+                task.wait()
 
                 local args = {
                     [1] = getgenv().door
                 }
-
                 game:GetService("ReplicatedStorage").endpoints.client_to_server.request_start_game:InvokeServer(unpack(args))
                 task.wait()
+
+                for i, v in pairs(game:GetService("Workspace")["_LOBBIES"].Story:GetDescendants()) do
+                    if v.Name == "Owner" then
+                       local n = tostring(v.Value)
+                        if n == game:GetService("Players").LocalPlayer.Name then
+                            print(v.Parent.Teleporting.Value)
+                            if v.Parent.Teleporting.Value == true then
+                                getgenv().teleporting = false
+                            else
+                                getgenv().teleporting = true
+                            end
+                        end
+                    end
+                end  
+
             end
         end
     end
 end))
+
 
 --hide name
 task.spawn(function()  -- Hides name for yters (not sure if its Fe)
